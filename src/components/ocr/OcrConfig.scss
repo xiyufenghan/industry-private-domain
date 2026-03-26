@@ -1,0 +1,121 @@
+.ocr-config {
+  margin-top: 8px;
+  border: 1px solid #EEF2FF;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #FAFBFF;
+}
+
+.ocr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+
+  &--main {
+    background: #EEF2FF;
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__title {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  &__desc {
+    display: block;
+    font-size: 11px;
+    color: #818CF8;
+    margin-top: 2px;
+  }
+}
+
+.ocr-section {
+  padding: 12px 14px;
+  border-top: 1px solid #E8EDFF;
+
+  &__title {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+  }
+}
+
+.ocr-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.ocr-type-item {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1.5px solid var(--color-border);
+  background: #fff;
+
+  &--active {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
+
+  &__label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+  }
+
+  &__desc {
+    display: block;
+    font-size: 10px;
+    color: var(--color-text-secondary);
+  }
+}
+
+.ocr-mode-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.ocr-mode-btn {
+  flex: 1;
+  padding: 7px;
+  border-radius: 6px;
+  border: 1.5px solid var(--color-border);
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  background: #fff;
+
+  &--active {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+    font-weight: 600;
+  }
+}
+
+.ocr-field-input {
+  width: 100%;
+  height: 32px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0 8px;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.ocr-hint {
+  font-size: 11px;
+  color: #9CA3AF;
+}
