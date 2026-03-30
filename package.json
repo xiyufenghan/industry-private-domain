@@ -1,0 +1,20 @@
+{
+  "name": "industry-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "cd server && npx tsx src/index.ts",
+    "deploy:install": "cd client && npm install && cd ../server && npm install",
+    "deploy:build": "cd client && npm run build",
+    "deploy:db": "cd server && npx prisma generate && npx prisma db push && npx tsx prisma/seed.ts",
+    "deploy:start": "cd server && npx tsx src/index.ts",
+    "deploy:all": "npm run deploy:install && npm run deploy:build && npm run deploy:db && npm run deploy:start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

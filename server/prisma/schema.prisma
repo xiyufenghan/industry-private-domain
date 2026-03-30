@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  name      String
+  role      String   @default("OPERATOR")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  industries UserIndustry[]
+  workOrders WorkOrder[]
+  todos      Todo[]
+  importLogs ImportLog[]
+}
+
+model Industry {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  code        String   @unique
+  description String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  users         UserIndustry[]
+  accounts      Account[]
+  dashboardData DashboardData[]
+  workOrders    WorkOrder[]
+  importLogs    ImportLog[]
+}
+
+model UserIndustry {
+  id         String @id @default(cuid())
+  userId     String
+  industryId String
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  industry Industry @relation(fields: [industryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, industryId])
+}
+
+model Account {
+  id         String   @id @default(cuid())
+  wechatId   String?
+  realName   String?
+  phone      String?
+  status     String   @default("NORMAL")
+  remark     String?
+  industryId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  industry Industry @relation(fields: [industryId], references: [id])
+  device   Device?
+}
+
+model Device {
+  id        String   @id @default(cuid())
+  model     String?
+  imei      String?
+  status    String   @default("IN_USE")
+  remark    String?
+  accountId String   @unique
+  createdAt DateTime @default(now())
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+}
+
+model DashboardData {
+  id         String   @id @default(cuid())
+  date       DateTime
+  category   String
+  metrics    String
+  industryId String
+  createdAt  DateTime @default(now())
+
+  industry Industry @relation(fields: [industryId], references: [id])
+
+  @@index([industryId, category, date])
+}
+
+model ImportLog {
+  id          String   @id @default(cuid())
+  fileName    String
+  category    String
+  totalRows   Int      @default(0)
+  successRows Int      @default(0)
+  failRows    Int      @default(0)
+  status      String   @default("SUCCESS")
+  errors      String?
+  userId      String
+  industryId  String
+  createdAt   DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id])
+  industry Industry @relation(fields: [industryId], references: [id])
+
+  @@index([industryId, category])
+}
+
+model WorkOrder {
+  id          String   @id @default(cuid())
+  orderNo     String   @unique
+  title       String
+  description String?
+  type        String
+  status      String   @default("PENDING")
+  priority    String   @default("MEDIUM")
+  deadline    DateTime?
+  industryId  String
+  creatorId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  industry Industry @relation(fields: [industryId], references: [id])
+  creator  User     @relation(fields: [creatorId], references: [id])
+
+  @@index([industryId, status])
+}
+
+model Todo {
+  id        String    @id @default(cuid())
+  title     String
+  completed Boolean   @default(false)
+  dueDate   DateTime?
+  userId    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
