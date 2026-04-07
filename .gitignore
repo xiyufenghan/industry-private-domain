@@ -1,4 +1,5 @@
 node_modules/
+<<<<<<< HEAD
 .env
 *.db
 dev.db
@@ -6,3 +7,11 @@ dist/
 logs/
 *.log
 private-domain.zip
+=======
+dist/
+.swc/
+.DS_Store
+*.log
+.env
+.env.local
+>>>>>>> 507b2e04b0c2cb05d62cf2748d3683e7ef2a2506
