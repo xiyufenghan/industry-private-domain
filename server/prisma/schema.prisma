@@ -16,10 +16,12 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  industries UserIndustry[]
-  workOrders WorkOrder[]
-  todos      Todo[]
-  importLogs ImportLog[]
+  industries          UserIndustry[]
+  workOrders          WorkOrder[]
+  todos               Todo[]
+  importLogs          ImportLog[]
+  promotionTasks      PromotionTask[]
+  promotionExecutions PromotionExecution[]
 }
 
 model Industry {
@@ -30,11 +32,12 @@ model Industry {
   active      Boolean  @default(true)
   createdAt   DateTime @default(now())
 
-  users         UserIndustry[]
-  accounts      Account[]
-  dashboardData DashboardData[]
-  workOrders    WorkOrder[]
-  importLogs    ImportLog[]
+  users                   UserIndustry[]
+  accounts                Account[]
+  dashboardData           DashboardData[]
+  workOrders              WorkOrder[]
+  importLogs              ImportLog[]
+  promotionTaskIndustries PromotionTaskIndustry[]
 }
 
 model UserIndustry {
@@ -59,8 +62,10 @@ model Account {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  industry Industry @relation(fields: [industryId], references: [id])
-  device   Device?
+  industry            Industry             @relation(fields: [industryId], references: [id])
+  device              Device?
+  promotionExecutions PromotionExecution[]
+  touchpointData      TouchpointData[]
 }
 
 model Device {
@@ -137,4 +142,72 @@ model Todo {
   updatedAt DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PromotionTask {
+  id          String    @id @default(cuid())
+  taskNo      String    @unique
+  title       String
+  description String?
+  contentType String    @default("产品推广")
+  status      String    @default("DRAFT")
+  priority    String    @default("MEDIUM")
+  deadline    DateTime?
+  creatorId   String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  creator    User                      @relation(fields: [creatorId], references: [id])
+  industries PromotionTaskIndustry[]
+  executions PromotionExecution[]
+
+  @@index([status])
+}
+
+model PromotionTaskIndustry {
+  id         String @id @default(cuid())
+  taskId     String
+  industryId String
+
+  task     PromotionTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  industry Industry      @relation(fields: [industryId], references: [id], onDelete: Cascade)
+
+  @@unique([taskId, industryId])
+}
+
+model PromotionExecution {
+  id                  String   @id @default(cuid())
+  taskId              String
+  operatorId          String
+  accountId           String
+  hasContactedManager Boolean  @default(false)
+  contactNote         String?
+  touchpoints         String   @default("[]")
+  status              String   @default("PENDING")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  task           PromotionTask   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  operator       User            @relation(fields: [operatorId], references: [id])
+  account        Account         @relation(fields: [accountId], references: [id])
+  touchpointData TouchpointData[]
+
+  @@index([taskId, accountId])
+}
+
+model TouchpointData {
+  id          String   @id @default(cuid())
+  executionId String
+  accountId   String
+  touchpoint  String
+  metrics     String   @default("{}")
+  executeDate DateTime
+  remark      String?
+  createdAt   DateTime @default(now())
+
+  execution PromotionExecution @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  account   Account            @relation(fields: [accountId], references: [id])
+
+  @@index([executionId, touchpoint])
+  @@index([accountId, touchpoint])
 }

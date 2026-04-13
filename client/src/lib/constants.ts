@@ -97,3 +97,58 @@ export const OrderTypes = [
   '标签设置',
   '其他',
 ]
+
+// ==================== 宣推系统 ====================
+
+export enum PromotionStatus {
+  DRAFT = 'DRAFT',
+  PUBLISHED = 'PUBLISHED',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED',
+}
+
+export const PromotionStatusLabel: Record<PromotionStatus, string> = {
+  [PromotionStatus.DRAFT]: '草稿',
+  [PromotionStatus.PUBLISHED]: '已发布',
+  [PromotionStatus.COMPLETED]: '已完成',
+  [PromotionStatus.CANCELLED]: '已取消',
+}
+
+export const PromotionStatusColor: Record<PromotionStatus, string> = {
+  [PromotionStatus.DRAFT]: 'bg-gray-100 text-gray-600',
+  [PromotionStatus.PUBLISHED]: 'bg-blue-100 text-blue-700',
+  [PromotionStatus.COMPLETED]: 'bg-green-100 text-green-700',
+  [PromotionStatus.CANCELLED]: 'bg-gray-100 text-gray-500',
+}
+
+export const ContentTypes = ['产品推广', '活动宣传', '品牌种草', '其他']
+
+export enum Touchpoint {
+  ONE_ON_ONE = '1V1',
+  MOMENTS = 'MOMENTS',
+  GROUP = 'GROUP',
+}
+
+export const TouchpointLabel: Record<string, string> = {
+  '1V1': '1V1 私聊',
+  'MOMENTS': '朋友圈',
+  'GROUP': '社群',
+}
+
+export const TouchpointColor: Record<string, string> = {
+  '1V1': 'bg-purple-100 text-purple-700',
+  'MOMENTS': 'bg-orange-100 text-orange-700',
+  'GROUP': 'bg-teal-100 text-teal-700',
+}
+
+export enum ExecutionStatus {
+  PENDING = 'PENDING',
+  IN_PROGRESS = 'IN_PROGRESS',
+  DONE = 'DONE',
+}
+
+export const ExecutionStatusLabel: Record<ExecutionStatus, string> = {
+  [ExecutionStatus.PENDING]: '待执行',
+  [ExecutionStatus.IN_PROGRESS]: '执行中',
+  [ExecutionStatus.DONE]: '已完成',
+}

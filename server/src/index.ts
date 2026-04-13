@@ -14,6 +14,7 @@ import todoRoutes from './routes/todos'
 import industryRoutes from './routes/industries'
 import userRoutes from './routes/users'
 import copywriterRoutes from './routes/copywriter'
+import promotionRoutes from './routes/promotions'
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -32,6 +33,7 @@ app.use('/api/todos', todoRoutes)
 app.use('/api/industries', industryRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/copywriter', copywriterRoutes)
+app.use('/api/promotions', promotionRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {

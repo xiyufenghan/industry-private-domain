@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import {
   LayoutDashboard, Users, BarChart3, Briefcase, Settings, FileText,
-  PenTool, ChevronLeft, ChevronRight
+  PenTool, ChevronLeft, ChevronRight, Megaphone, FileSpreadsheet
 } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '../../lib/utils'
@@ -14,6 +14,8 @@ interface SidebarProps {
 const menuItems = [
   { path: '/', icon: LayoutDashboard, label: '工作台首页', roles: [Role.ADMIN, Role.MANAGER, Role.OPERATOR] },
   { path: '/accounts', icon: Users, label: '账号管理', roles: [Role.ADMIN, Role.OPERATOR] },
+  { path: '/promotions', icon: Megaphone, label: '宣推任务', roles: [Role.ADMIN, Role.OPERATOR] },
+  { path: '/promotions/report', icon: FileSpreadsheet, label: '宣发报表', roles: [Role.ADMIN, Role.MANAGER] },
   { path: '/dashboard', icon: BarChart3, label: '数据看板', roles: [Role.ADMIN, Role.MANAGER] },
   { path: '/dashboard/import', icon: FileText, label: '数据导入', roles: [Role.ADMIN, Role.OPERATOR] },
   { path: '/workspace/orders', icon: Briefcase, label: '需求工单', roles: [Role.ADMIN, Role.OPERATOR] },

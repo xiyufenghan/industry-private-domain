@@ -14,6 +14,10 @@ const OrderDetailPage = lazy(() => import('./pages/workspace/order-detail'))
 const OrderCreatePage = lazy(() => import('./pages/workspace/order-create'))
 const EditorPage = lazy(() => import('./pages/workspace/editor'))
 const CopywriterPage = lazy(() => import('./pages/workspace/copywriter'))
+const PromotionsPage = lazy(() => import('./pages/promotions/index'))
+const PromotionCreatePage = lazy(() => import('./pages/promotions/create'))
+const PromotionDetailPage = lazy(() => import('./pages/promotions/detail'))
+const PromotionReportPage = lazy(() => import('./pages/promotions/report'))
 const SettingsPage = lazy(() => import('./pages/settings/index'))
 const IndustriesPage = lazy(() => import('./pages/settings/industries'))
 const UsersPage = lazy(() => import('./pages/settings/users'))
@@ -44,6 +48,10 @@ function App() {
             <Route path="workspace/orders/:id" element={<OrderDetailPage />} />
             <Route path="workspace/editor" element={<EditorPage />} />
             <Route path="workspace/copywriter" element={<CopywriterPage />} />
+            <Route path="promotions" element={<PromotionsPage />} />
+            <Route path="promotions/new" element={<PromotionCreatePage />} />
+            <Route path="promotions/report" element={<PromotionReportPage />} />
+            <Route path="promotions/:id" element={<PromotionDetailPage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="settings/industries" element={<IndustriesPage />} />
             <Route path="settings/users" element={<UsersPage />} />
